@@ -22,12 +22,14 @@ String.prototype.contains = function(argument){
 //custom search param
 app.get('/:search', function(req, res){
   var search = req.params.search + "";
+  console.log("Search: "+search);
 
   //get all of the elements from the database
   redisClient.lrange('comics3', 0, -1, function (error, comics) {
+  var listOfMatchingComics = "";
   comics.forEach(function (item) {
     var comic = JSON.parse(item);
-    console.log(comic);
+    //console.log(comic);
 
     var name = comic.name + "";
     var transcript = comic.transcript + "";
@@ -35,11 +37,20 @@ app.get('/:search', function(req, res){
     //check if the search is related, if it is, send the comic
     if(name.contains(search) || transcript.contains(search))
     {
-	res.end('<!DOCTYPE html><html><head><title>xkcd search</title></head><body><h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/></body></html>');
-    	return;
+      listOfMatchingComics += '<h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/>';
+	    //res.end('<!DOCTYPE html><html><head><title>xkcd search</title></head><body><h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/></body></html>');
     }
   });
-  res.end("<h1>Sorry, no results</h1>");
+
+  //if there were any matching comics, display a list of them
+  if(listOfMatchingComics.length > 0)
+  {
+    res.end('<!DOCTYPE html><html><head><title>xkcd search</title></head><body>'+listOfMatchingComics+'</body></html>');
+  }
+  else {
+    //if not, reply sorry
+    res.end("<h1>Sorry, no results</h1>");
+  }
 
   console.log('finished search');
 });
