@@ -9,7 +9,7 @@ var app = express();
 
 //root directory
 app.get('/', function (req, res) {
-  res.send("Search xkcd by keyword. Example: http://localhost:3000/poop -> this would return comics about poop.");
+  res.send("<!DOCTYPE html><html><head><title>xkcd search</title></head><body><h1>Search xkcd by keyword. Example: http://xkcdsearch.com/poop -> this would return comics about poop.</h1></body></html>");
 });
 
 //string 'contains' helper function
@@ -35,9 +35,9 @@ app.get('/:search', function(req, res){
     //check if the search is related, if it is, send the comic
     if(name.contains(search) || transcript.contains(search))
     {
-      res.end('<h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/>');
+	res.end('<!DOCTYPE html><html><head><title>xkcd search</title></head><body><h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/></body></html>');
+    	return;
     }
-    return;
   });
   res.end("<h1>Sorry, no results</h1>");
 
@@ -48,7 +48,7 @@ app.get('/:search', function(req, res){
 });
 
 //listen
-var server = app.listen(3000, function () {
+var server = app.listen(80, function () {
 
   var host = server.address().address;
   var port = server.address().port;
