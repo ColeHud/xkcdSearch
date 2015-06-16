@@ -35,12 +35,8 @@ app.get('/:search', function(req, res){
     //check if the search is related, if it is, send the comic
     if(name.contains(search) || transcript.contains(search))
     {
-<<<<<<< HEAD
 	res.end('<!DOCTYPE html><html><head><title>xkcd search</title></head><body><h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/></body></html>');
     	return;
-=======
-      res.end('<!DOCTYPE html><html><head><title>xkcd search</title></head><h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/></html>');
->>>>>>> 383d4b63b45e42c9fe8361f362394e5fd44fd3ae
     }
   });
   res.end("<h1>Sorry, no results</h1>");
