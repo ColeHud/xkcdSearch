@@ -35,7 +35,7 @@ app.get('/:search', function(req, res){
     //check if the search is related, if it is, send the comic
     if(name.contains(search) || transcript.contains(search))
     {
-      res.end('<h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/>');
+      res.end('<!DOCTYPE html><html><head><title>xkcd search</title></head><h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/></html>');
     }
     return;
   });
@@ -48,7 +48,7 @@ app.get('/:search', function(req, res){
 });
 
 //listen
-var server = app.listen(3000, function () {
+var server = app.listen(80, function () {
 
   var host = server.address().address;
   var port = server.address().port;
