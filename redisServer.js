@@ -41,7 +41,7 @@ var getComic = function(number)
       return stringyComic;
     }
   });
-}
+};
 
 //update the database with the latest comics
 var updateDB = function(){
