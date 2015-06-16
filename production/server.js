@@ -35,10 +35,11 @@ app.get('/:search', function(req, res){
     //check if the search is related, if it is, send the comic
     if(name.contains(search) || transcript.contains(search))
     {
-      res.end('<h1>'+comic.name+'</h1></br><p>'+comic.transcript+'</p></br><img src=\''+comic.image+'\'/>');
+      res.end('<h1>'+comic.name+'</h1><img src=\''+comic.image+'\'/>');
     }
     return;
   });
+  res.end("<h1>Sorry, no results</h1>");
 
   console.log('finished search');
 });
